@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">  
+    <head>  
+        <title>jquery-mappify-demo</title>  
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>  
+        <script type="text/javascript" src="./jquery.jsonp-2.1.0.js"></script>  
+        <script type="text/javascript" src="../src/jquery.mappify.js"></script>  
+
+        <script type="text/javascript">  
+            $(document).ready(function() {
+                var callback = function (jtm) {
+                    $('#notifier').hide();
+                    alert("Recieved JTM data: "+jtm.topics.length+" topics, "+jtm.associations.length+" associations");
+                }
+                $('form').submit(function (event) {
+                    $('#notifier').show();
+                    $.mappify($('#url').val(),
+                        'http://mappify.googlecode.com/svn/sandbox/example/doap.n3',
+                        callback);
+                    event.preventDefault();
+                });
+            });
+        </script>  
+        <style>  
+            body {font-family:arial;font-style:bold}  
+            a {color:#666; text-decoration:none}  
+            #menu {list-style:none;width:160px;padding-left:10px;}  
+            #menu li {margin:0;padding:5px;cursor:hand;cursor:pointer}  
+        </style>  
+    </head>     
+    <body>
+        <h1>mappify for jQuery</h1>
+        <form method="get" action="#">
+            <label for="url">URL to a DOAP-file:</label>
+            <input type="text" id="url" name="url" value="http://tinytim.sourceforge.net/doap.xml" size="50"/>
+            <input type="submit" value="Mappify!" id="submit" length="50" />
+            <img src="indicator.gif" alt="notifier" style="display: none;" id="notifier" />
+        </form>
+    </body>  
+</html>  
